@@ -1,26 +1,37 @@
-import React from 'react'
-import heroImg from '../../assets/heroImg.jpg'
+import React from "react";
+import heroImg from "../../assets/heroImg.jpg";
 
 const Hero = () => {
   return (
-    <section className="text-gray-600 body-font mt-20">
-      <div className="container mx-auto flex px-5 py-24 md:flex-row md:justify-center flex-col items-center">
-        <div className="md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Get the product now before
-            <br className="hidden lg:inline-block"/>they get sold
-          </h1>
-          <p className="mb-8 leading-relaxed">Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
-          <div className="flex justify-center">
-            <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Show All Products</button>
-            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Contact Us</button>
-          </div>
-        </div>
-        <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-          <img className="object-cover object-center rounded" alt="hero" src={heroImg}/>
-        </div>
-      </div>
-    </section>
-  )
-}
+    <a href="/" className="group relative block">
+      <div className="relative h-[350px] sm:h-[450px]">
+        <img
+          src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
+        />
 
-export default Hero
+        <img
+          src="https://images.unsplash.com/photo-1604671368394-2240d0b1bb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1031&q=80"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100"
+        />
+      </div>
+
+      <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
+        <h3 className="text-xl font-medium text-white">Skinny Jeans Blue</h3>
+
+        <p className="mt-1.5 max-w-[40ch] text-xs text-white">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
+          sequi dicta impedit aperiam ipsum!
+        </p>
+
+        <span className="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+          Shop Now
+        </span>
+      </div>
+    </a>
+  );
+};
+
+export default Hero;
