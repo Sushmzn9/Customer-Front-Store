@@ -41,11 +41,12 @@ const Header = () => {
             );
           })}
         </nav>
+        <br />
         <div className="flex gap-2">
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm border border-gray-300 
+            className="block md:w-full w-1/2 p-2 pl-10 text-sm border border-gray-300 
             text-black rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Products"
             required
