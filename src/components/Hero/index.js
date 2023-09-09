@@ -1,5 +1,5 @@
 import React from "react";
-import heroImg from "../../assets/heroImg.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -26,9 +26,12 @@ const Hero = () => {
           sequi dicta impedit aperiam ipsum!
         </p>
 
-        <span className="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+        <Link
+          to="/products"
+          className="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
+        >
           Shop Now
-        </span>
+        </Link>
       </div>
     </a>
   );

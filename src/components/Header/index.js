@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Sushan from "../../assets/Sushan Logo.jpg";
 import { Search, ShoppingCart, User } from "lucide-react";
+import MyPopover from "../Popup/Popup";
 
 const navigations = [
   {
@@ -9,7 +10,7 @@ const navigations = [
     path: "/",
   },
   {
-    name: "Categories",
+    name: "Products",
     path: "/products",
   },
   {
@@ -21,13 +22,15 @@ const navigations = [
 const Header = () => {
   return (
     <header className="text-gray-600 body-font shadow-lg">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center">
         <Link
           to={"/"}
           className="flex cursor-pointer title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
         >
-          <img src={Sushan} alt="" className="h-10" />
-          <span className="ml-3 text-xl font-serif font-bold">Tech Store</span>
+          <img src={Sushan} alt="" className="h-10 hidden md:inline-flex" />
+          <span className="ml-3 text-xl font-serif font-bold hidden md:inline-flex">
+            Tech Store
+          </span>
         </Link>
         <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
           {navigations.map((navigation) => {
@@ -41,32 +44,44 @@ const Header = () => {
             );
           })}
         </nav>
-        <br />
-        <div className="flex gap-2">
-          <input
-            type="search"
-            id="default-search"
-            className="block md:w-full w-1/2 p-2 pl-10 text-sm border border-gray-300 
-            text-black rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search Products"
-            required
-          />
-          <button className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base mt-4 md:mt-0">
-            <Search />
-          </button>
+        <div className="mt-2">
+          <MyPopover />
+        </div>
+        <div className="flex gap-2 mt-2 justify-center items-center">
+          <div className="relative justify-center items-center sm:block">
+            <label className="sr-only" htmlFor="search">
+              Search
+            </label>
 
-          <Link
-            to={"/signin"}
-            className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base mt-4 md:mt-0"
-          >
-            <User />
-          </Link>
-          <Link
-            to={"/cart"}
-            className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base mt-4 md:mt-0"
-          >
-            <ShoppingCart />
-          </Link>
+            <input
+              className="h-10 w-full rounded-lg border bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+              id="search"
+              type="search"
+              placeholder="Search website..."
+            />
+
+            <button
+              type="button"
+              className="absolute end-1 top-1/2 -translate-y-5 md:-translate-y-1/2 rounded-md p-2 text-gray-600 transition hover:text-gray-700"
+            >
+              <span className="sr-only">Search</span>
+              <Search />
+            </button>
+          </div>
+          <div className="gap-2 flex justify-center items-center">
+            <Link
+              to={"/signin"}
+              className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base mt-4 md:mt-0"
+            >
+              <User />
+            </Link>
+            <Link
+              to={"/cart"}
+              className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base mt-4 md:mt-0"
+            >
+              <ShoppingCart />
+            </Link>
+          </div>
         </div>
       </div>
     </header>
