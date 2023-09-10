@@ -44,7 +44,7 @@ const Header = () => {
             );
           })}
         </nav>
-        <div className="mt-2">
+        <div className="mt-3 mb-3">
           <MyPopover />
         </div>
         <div className="flex gap-2 mt-2 justify-center items-center">
@@ -71,13 +71,13 @@ const Header = () => {
           <div className="gap-2 flex justify-center items-center">
             <Link
               to={"/signin"}
-              className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base mt-4 md:mt-0"
+              className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
             >
               <User />
             </Link>
             <Link
               to={"/cart"}
-              className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base mt-4 md:mt-0"
+              className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
             >
               <ShoppingCart />
             </Link>

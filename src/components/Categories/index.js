@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import FeatureCard from '../FeatureCard'
+import React, { useEffect, useState } from "react";
+import FeatureCard from "../FeatureCard";
+import { getProductCategoriesById } from "../../helper/axios";
+import { useParams } from "react-router-dom";
 
 const Categories = () => {
-  const [categories, setCategories] = useState([])
+  const [categories, setCategoriesById] = useState([]);
+  const { _id } = useParams();
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await fetch('https://fakestoreapi.com/products/categories')
-      const data = await response.json()
-      console.log(data, 'data')
-      setCategories(data)
-    }
-    fetchCategories()
-  }, [])
+    const fetchCategoriesById = async () => {
+      const response = await getProductCategoriesById({ _id });
+      console.log(response);
+      setCategoriesById(response);
+    };
+    fetchCategoriesById();
+  }, []);
 
-  if (categories.length === 0) return <div>Loading.....</div>
+  if (categories.length === 0) return <div>Loading.....</div>;
 
-  return (
-      <FeatureCard cards={categories}/>
-  )
-}
+  return <FeatureCard cards={categories} />;
+};
 
-export default Categories
+export default Categories;

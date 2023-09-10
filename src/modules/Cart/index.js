@@ -7,6 +7,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const carts = JSON.parse(localStorage.getItem("cart")) || [];
+  console.log(carts);
 
   useEffect(() => {
     const total = carts.reduce((acc, item) => {
@@ -49,12 +50,14 @@ const Cart = () => {
     navigate("/cart");
   };
 
+  const handleOnCheckOut = (id) => {
+    id ? navigate("/") : navigate("/signin");
+  };
+
   if (carts.length === 0) {
     return (
       <div className=" h-[55vh] flex justify-center items-center text-4xl ">
-        <Header />
         Cart is Empty
-        <Footer />
       </div>
     );
   }
@@ -86,10 +89,17 @@ const Cart = () => {
               <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                 <div className="flex w-2/5">
                   <div className="w-20">
-                    <img className="h-24" src={cart?.image} alt={cart?.title} />
+                    <img
+                      className="h-24 object-contain"
+                      src={
+                        process.env.REACT_APP_ROOTSERVER +
+                        cart.thumbnail?.slice(6)
+                      }
+                      alt={cart?.name}
+                    />
                   </div>
                   <div className="flex flex-col justify-between ml-4 flex-grow">
-                    <span className="font-bold text-sm">{cart?.title}</span>
+                    <span className="font-bold text-sm">{cart?.name}</span>
                     <span className="text-red-500 text-xs capitalize">
                       {cart?.category}
                     </span>
@@ -188,7 +198,10 @@ const Cart = () => {
               <span>Total cost</span>
               <span>${(total + 10).toFixed(2)}</span>
             </div>
-            <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+            <button
+              onClick={handleOnCheckOut}
+              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+            >
               Checkout
             </button>
           </div>

@@ -16,9 +16,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products/:id" element={<Product />} />
+        <Route path="/products/:slug?/:_id?" element={<Product />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/categories/:name" element={<CategoryProducts />} />
+        <Route path="/category/:slug?/:_id?" element={<CategoryProducts />} />
         <Route path="cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="*" element={<div>404</div>} />
