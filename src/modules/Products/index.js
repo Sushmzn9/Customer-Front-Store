@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Categories from "../../components/Categories";
+import { getProduct } from "../../helper/axios";
 import ProductCard from "../../components/ProductCard";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const data = await response.json();
-      setProducts(data);
+      const { product } = await getProduct();
+      setProducts(product);
     };
     fetchProducts();
   }, []);
@@ -24,7 +23,7 @@ const Products = () => {
         </h1>
       </div>
       {products.length > 0 ? (
-        <ProductCard products={products} />
+        <ProductCard allproducts={products} />
       ) : (
         <div>Loading.....</div>
       )}

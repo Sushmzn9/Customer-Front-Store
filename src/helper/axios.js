@@ -76,7 +76,6 @@ export const getProductCategoriesById = ({ _id }) => {
 };
 
 export const getProduct = (_id) => {
-  console.log(_id);
   const obj = {
     method: "get",
     url: _id ? proAPI + "/" + _id : proAPI,

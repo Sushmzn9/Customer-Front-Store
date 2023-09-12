@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ products }) => {
+const ProductCard = ({ allproducts }) => {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-4">
-          {products.map((product) => {
+          {allproducts?.map((product) => {
             const { _id, name, price, slug, category, thumbnail, salesPrice } =
               product;
             return (
               <Link
                 to={`/products/${slug}/${_id}`}
-                className="lg:w-[23%] md:w-1/2 p-4 w-full mb-4 cursor-pointer rounded-lg shadow ml-4"
+                className="lg:w-[23%] md:w-1/2 p-4 w-full mb-4 cursor-pointer rounded-lg border shadow ml-4 hover:scale-105 transition-all ease-linear"
               >
                 <span className="block relative h-48 rounded overflow-hidden">
                   <img

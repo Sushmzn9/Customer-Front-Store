@@ -11,7 +11,7 @@ const navigations = [
   },
   {
     name: "Products",
-    path: "/products",
+    path: "/all-products",
   },
   {
     name: "Booking",

@@ -17,7 +17,7 @@ const CategoryProducts = () => {
 
   if (productDt?.length === 0) return <div>Loading.....</div>;
 
-  return <ProductCard products={productDt} />;
+  return <ProductCard allproducts={productDt} />;
 };
 
 export default CategoryProducts;
