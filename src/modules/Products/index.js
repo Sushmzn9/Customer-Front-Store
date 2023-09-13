@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getProduct } from "../../helper/axios";
 import ProductCard from "../../components/ProductCard";
+import Skeleton from "react-loading-skeleton";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -25,7 +26,9 @@ const Products = () => {
       {products.length > 0 ? (
         <ProductCard allproducts={products} />
       ) : (
-        <div>Loading.....</div>
+        <div style={{ display: "flex" }}>
+          <Skeleton containerClassName="flex-1" />
+        </div>
       )}
     </div>
   );

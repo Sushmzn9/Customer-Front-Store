@@ -6,6 +6,8 @@ import Products from "../../components/ProductCard";
 import Stats from "../../components/StatCard";
 import DiscountBanner from "../../components/Add/DiscountBanner";
 import { getProduct } from "../../helper/axios";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Home = () => {
   const [allproducts, setProductsAll] = useState([]);
@@ -32,7 +34,9 @@ const Home = () => {
       {allproducts?.length > 0 ? (
         <ProductCard allproducts={allproducts} />
       ) : (
-        <div>Loading.....</div>
+        <div className="flex mt-10">
+          <Skeleton count={5} containerClassName="flex-1" />
+        </div>
       )}
       <Products />
       <DiscountBanner />

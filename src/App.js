@@ -9,6 +9,8 @@ import Products from "./modules/Products";
 import CategoryProducts from "./modules/CategoryProducts";
 import Cart from "./modules/Cart";
 import SignIn from "./components/User/SignIn";
+import SignUp from "./components/User/Signup";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -21,9 +23,22 @@ function App() {
         <Route path="/category/:slug?/:_id?" element={<CategoryProducts />} />
         <Route path="cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<div>404</div>} />
       </Routes>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }

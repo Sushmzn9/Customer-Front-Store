@@ -70,7 +70,7 @@ const Header = () => {
           </div>
           <div className="gap-2 flex justify-center items-center">
             <Link
-              to={"/signin"}
+              to={"/signup"}
               className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
             >
               <User />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct } from "../../helper/axios";
 import { Facebook, Heart, Instagram, Star } from "lucide-react";
+import Skeleton from "react-loading-skeleton";
 
 const Product = () => {
   const { _id } = useParams();
@@ -43,7 +44,12 @@ const Product = () => {
     }
   };
 
-  if (!Object.keys(productDt).length > 0) return <div>Loading.....</div>;
+  if (!Object.keys(productDt).length > 0)
+    return (
+      <div style={{ display: "flex" }}>
+        <Skeleton containerClassName="flex-1" />
+      </div>
+    );
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">

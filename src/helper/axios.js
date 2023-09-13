@@ -5,6 +5,7 @@ const rootAPI = process.env.REACT_APP_ROOTAPI;
 const catAPI = rootAPI + "/category";
 const admiAPI = rootAPI + "/admin";
 const proAPI = rootAPI + "/product";
+const userAPI = rootAPI + "/user";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -79,6 +80,17 @@ export const getProduct = (_id) => {
   const obj = {
     method: "get",
     url: _id ? proAPI + "/" + _id : proAPI,
+  };
+  return axiosProcesor(obj);
+};
+
+// customer signin
+
+export const postUserSignUp = (data) => {
+  const obj = {
+    method: "post",
+    url: userAPI,
+    obj: data,
   };
   return axiosProcesor(obj);
 };

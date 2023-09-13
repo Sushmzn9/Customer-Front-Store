@@ -27,7 +27,7 @@ const Hero = () => {
         </p>
 
         <Link
-          to="/products"
+          to="/all-products"
           className="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
         >
           Shop Now
