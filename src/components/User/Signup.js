@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Inputs from "../InputField/Inputs";
 import { Link } from "react-router-dom";
 import { postUserSignUpAction } from "./userAction";
-import { toast, useToast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const inputs = [

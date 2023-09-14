@@ -94,3 +94,28 @@ export const postUserSignUp = (data) => {
   };
   return axiosProcesor(obj);
 };
+export const postUserVerificationInfo = (data) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/user-verification",
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+export const signInUser = (data) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/sign-in",
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+export const getUserInfo = () => {
+  const obj = {
+    method: "get",
+    url: userAPI,
+  };
+  return axiosProcesor(obj);
+};

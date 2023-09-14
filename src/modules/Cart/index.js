@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -51,7 +49,7 @@ const Cart = () => {
   };
 
   const handleOnCheckOut = (id) => {
-    id ? navigate("/") : navigate("/signin");
+    id ? navigate("/checkout") : navigate("/signin");
   };
 
   if (carts.length === 0) {
@@ -99,10 +97,10 @@ const Cart = () => {
                     />
                   </div>
                   <div className="flex flex-col justify-between ml-4 flex-grow">
-                    <span className="font-bold text-sm">{cart?.name}</span>
-                    <span className="text-red-500 text-xs capitalize">
-                      {cart?.category}
-                    </span>
+                    <Link to={`/products/${cart.slug}/${cart._id}`}>
+                      <span className="font-bold text-sm">{cart?.name}</span>
+                    </Link>
+
                     <div
                       className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
                       onClick={() => removeProduct(cart?.id)}
@@ -145,7 +143,7 @@ const Cart = () => {
           })}
 
           <Link
-            to={"/products"}
+            to={"/all-products"}
             className="flex font-semibold text-indigo-600 text-sm mt-10"
           >
             <svg
