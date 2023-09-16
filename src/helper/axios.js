@@ -116,6 +116,20 @@ export const getUserInfo = () => {
   const obj = {
     method: "get",
     url: userAPI,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const logoutUser = (_id) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/logout",
+    obj: {
+      _id,
+      accessJWT: getAccessJWT(),
+      refreshJWT: getRefreshJWT(),
+    },
   };
   return axiosProcesor(obj);
 };

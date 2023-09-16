@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Sushan from "../../assets/Sushan Logo.jpg";
 import { Search, ShoppingCart, User } from "lucide-react";
 import MyPopover from "../Popup/Popup";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../User/userSlice";
+import { logoutUser } from "../../helper/axios";
+import { toast } from "react-toastify";
 
 const navigations = [
   {
@@ -20,6 +24,26 @@ const navigations = [
 ];
 
 const Header = () => {
+  const { user } = useSelector((state) => state.userInfo);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleOnLogout = () => {
+    // log out from server by removing the access and refresh JWTs
+
+    logoutUser(user._id);
+
+    //clear storages
+    localStorage.removeItem("refreshJWT");
+    sessionStorage.removeItem("accessJWT");
+
+    // reset store
+    dispatch(setUser({}));
+
+    toast.success("Logged Out");
+
+    navigate("/");
+  };
   return (
     <header className="text-gray-600 body-font shadow-lg">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center">
@@ -69,12 +93,25 @@ const Header = () => {
             </button>
           </div>
           <div className="gap-2 flex justify-center items-center">
-            <Link
-              to={"/signin"}
-              className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
-            >
-              <User />
-            </Link>
+            {user?._id ? (
+              <>
+                <Link
+                  to="#!"
+                  className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
+                  onClick={handleOnLogout}
+                >
+                  Sign Out
+                </Link>
+              </>
+            ) : (
+              <Link
+                to={"/signin"}
+                className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
+              >
+                <User />
+              </Link>
+            )}
+
             <Link
               to={"/cart"}
               className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"

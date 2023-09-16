@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { signInUserAction } from "./userAction";
+import { useDispatch, useSelector } from "react-redux";
+import { autoLogin, signInUserAction } from "./userAction";
 
 const initialState = {
   email: "",
@@ -9,16 +9,18 @@ const initialState = {
 };
 const SignIn = () => {
   const location = useLocation();
-
+  console.log(location);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState(initialState);
+  const { user } = useSelector((state) => state.userInfo);
 
-  const pathTo = location.state?.from?.location?.pathname || "/dashboard";
-  //   useEffect(() => {
-  //     user?._id && navigate(pathTo);
-  //     dispatch(autoLogin());
-  //   }, [user, navigate, dispatch, pathTo]);
+  const pathTo = location.state?.from?.location?.pathname || "/";
+  console.log(pathTo);
+  useEffect(() => {
+    user?._id && navigate(pathTo);
+    dispatch(autoLogin());
+  }, [user, navigate, dispatch, pathTo]);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setForm({

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const carts = JSON.parse(localStorage.getItem("cart")) || [];
   console.log(carts);
+  const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
     const total = carts.reduce((acc, item) => {
@@ -48,8 +50,8 @@ const Cart = () => {
     navigate("/cart");
   };
 
-  const handleOnCheckOut = (id) => {
-    id ? navigate("/checkout") : navigate("/signin");
+  const handleOnCheckOut = () => {
+    user._id ? navigate("/all-products") : navigate("/signin");
   };
 
   if (carts.length === 0) {
@@ -100,7 +102,6 @@ const Cart = () => {
                     <Link to={`/products/${cart.slug}/${cart._id}`}>
                       <span className="font-bold text-sm">{cart?.name}</span>
                     </Link>
-
                     <div
                       className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
                       onClick={() => removeProduct(cart?.id)}
