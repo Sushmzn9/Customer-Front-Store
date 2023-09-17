@@ -6,6 +6,7 @@ const catAPI = rootAPI + "/category";
 const admiAPI = rootAPI + "/admin";
 const proAPI = rootAPI + "/product";
 const userAPI = rootAPI + "/user";
+const paymentAPI = rootAPI + "/payment";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -130,6 +131,15 @@ export const logoutUser = (_id) => {
       accessJWT: getAccessJWT(),
       refreshJWT: getRefreshJWT(),
     },
+  };
+  return axiosProcesor(obj);
+};
+
+// payment api
+export const getPaymentInfo = (_id) => {
+  const obj = {
+    method: "get",
+    url: _id ? paymentAPI + "/" + _id : paymentAPI,
   };
   return axiosProcesor(obj);
 };

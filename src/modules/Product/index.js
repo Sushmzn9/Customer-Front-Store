@@ -20,10 +20,10 @@ const Product = () => {
   const handleCart = (productDt, redirect) => {
     console.log(productDt);
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const isProductExist = cart.find((item) => item.id === productDt.id);
+    const isProductExist = cart.find((item) => item._id === productDt._id);
     if (isProductExist) {
       const updatedCart = cart.map((item) => {
-        if (item.id === productDt.id) {
+        if (item._id === productDt._id) {
           return {
             ...item,
             quantity: item.quantity + 1,

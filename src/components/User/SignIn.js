@@ -16,6 +16,7 @@ const SignIn = () => {
   const { user } = useSelector((state) => state.userInfo);
 
   const pathTo = location.state?.from?.location?.pathname || "/";
+  console.log(location);
   console.log(pathTo);
   useEffect(() => {
     user?._id && navigate(pathTo);

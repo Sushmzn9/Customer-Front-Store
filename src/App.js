@@ -12,6 +12,8 @@ import SignIn from "./components/User/SignIn";
 import SignUp from "./components/User/Signup";
 import { ToastContainer } from "react-toastify";
 import UserVerification from "./components/User/UserVerification";
+import PrivateRoute from "./modules/Private/privateRoute";
+import Checkout from "./modules/Checkout/Checkout";
 
 function App() {
   return (
@@ -26,6 +28,14 @@ function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<div>404</div>} />
       </Routes>
       <Footer />
