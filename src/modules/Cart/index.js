@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const carts = JSON.parse(localStorage.getItem("cart")) || [];
-  console.log(carts);
+  // console.log(carts);
   const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
@@ -18,26 +19,41 @@ const Cart = () => {
 
   const handleInc = (id) => {
     const updatedCart = carts.map((item) => {
-      if (item.id === id) {
+      console.log(carts);
+      if (item._id === id) {
+        const newQuantity = Math.min(
+          item.quantity + 1,
+          parseInt(`${item.qty}`)
+        );
+        if (newQuantity === parseInt(` ${item.qty}`)) {
+          toast.info(
+            "You have reached the maximum quantity limit for this item."
+          );
+        }
         return {
           ...item,
-          quantity: item.quantity + 1,
+          quantity: newQuantity,
         };
       }
+
       return item;
     });
+
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     navigate("/cart");
   };
 
   const handleDec = (id) => {
     const updatedCart = carts.map((item) => {
-      if (item.id === id) {
+      const newQuantity = Math.max(item.quantity - 1, 1);
+
+      if (item._id === id) {
         return {
           ...item,
-          quantity: item.quantity - 1,
+          quantity: newQuantity,
         };
       }
+
       return item;
     });
     localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -45,7 +61,7 @@ const Cart = () => {
   };
 
   const removeProduct = (id) => {
-    const updatedCart = carts.filter((item) => item.id !== id);
+    const updatedCart = carts.filter((item) => item._id !== id);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     navigate("/cart");
   };
@@ -104,7 +120,7 @@ const Cart = () => {
                     </Link>
                     <div
                       className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
-                      onClick={() => removeProduct(cart?.id)}
+                      onClick={() => removeProduct(cart?._id)}
                     >
                       Remove
                     </div>
@@ -114,7 +130,7 @@ const Cart = () => {
                   <svg
                     className="fill-current text-gray-600 w-3 cursor-pointer"
                     viewBox="0 0 448 512"
-                    onClick={() => handleDec(cart?.id)}
+                    onClick={() => handleDec(cart?._id)}
                   >
                     <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                   </svg>
@@ -127,7 +143,7 @@ const Cart = () => {
 
                   <svg
                     className="fill-current text-gray-600 w-3 cursor-pointer"
-                    onClick={() => handleInc(cart?.id)}
+                    onClick={() => handleInc(cart?._id)}
                     viewBox="0 0 448 512"
                   >
                     <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />

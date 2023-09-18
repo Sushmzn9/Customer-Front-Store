@@ -10,7 +10,7 @@ import CategoryProducts from "./modules/CategoryProducts";
 import Cart from "./modules/Cart";
 import SignIn from "./components/User/SignIn";
 import SignUp from "./components/User/Signup";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import UserVerification from "./components/User/UserVerification";
 import PrivateRoute from "./modules/Private/privateRoute";
 import Checkout from "./modules/Checkout/Checkout";
@@ -41,7 +41,7 @@ function App() {
       <Footer />
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -49,6 +49,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        transition={Zoom}
         theme="colored"
       />
     </div>

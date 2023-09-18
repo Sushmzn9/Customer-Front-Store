@@ -7,7 +7,7 @@ const Inputs = ({ label, ...rest }) => {
 
       <input
         {...rest}
-        className="mt-1 w-full p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm border"
+        className="mt-1 mb-2 w-full p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm border"
       />
     </>
   );
