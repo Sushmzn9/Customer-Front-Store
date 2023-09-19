@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const fetchProducts = async () => {
       const { product } = await getProduct();

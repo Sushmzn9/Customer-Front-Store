@@ -65,7 +65,7 @@ export const getCategories = (_id) => {
     method: "get",
     url: _id ? catAPI + "/" + _id : catAPI,
   };
-  console.log(process.env.REACT_APP_ROOTAPI);
+
   return axiosProcesor(obj);
 };
 

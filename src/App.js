@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -40,7 +40,7 @@ function App() {
       </Routes>
       <Footer />
       <ToastContainer
-        position="top-right"
+        position="bottom-right"
         autoClose={2500}
         hideProgressBar={false}
         newestOnTop={false}

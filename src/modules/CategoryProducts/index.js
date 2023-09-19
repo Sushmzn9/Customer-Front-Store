@@ -10,7 +10,6 @@ const CategoryProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const { product } = await getProductCategoriesById({ _id });
-      console.log(product);
       setProductDt(product);
     };
     fetchProducts();

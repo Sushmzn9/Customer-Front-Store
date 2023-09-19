@@ -3,32 +3,48 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProduct } from "../../helper/axios";
 import { Facebook, Heart, Instagram, Star } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { _id } = useParams();
   const navigate = useNavigate();
   const [productDt, setProductDt] = useState({});
-
   useEffect(() => {
     const fetchProduct = async () => {
       const { product } = await getProduct(_id);
       setProductDt(product);
     };
     fetchProduct();
-  }, []);
+  }, [_id]);
 
   const handleCart = (productDt, redirect) => {
-    console.log(productDt);
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
     const isProductExist = cart.find((item) => item._id === productDt._id);
+
     if (isProductExist) {
       const updatedCart = cart.map((item) => {
         if (item._id === productDt._id) {
+          const newQuantity = Math.min(
+            item.quantity + 1,
+            parseInt(`${item.qty}`)
+          );
+          if (
+            newQuantity === undefined ||
+            newQuantity === parseInt(`${item.qty}`)
+          ) {
+            toast.info(
+              "You have reached the maximum quantity limit for this item."
+            );
+          } else {
+            toast.success("Product added to cart");
+          }
           return {
             ...item,
-            quantity: item.quantity + 1,
+            quantity: newQuantity,
           };
         }
+
         return item;
       });
       localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -38,7 +54,6 @@ const Product = () => {
         JSON.stringify([...cart, { ...productDt, quantity: 1 }])
       );
     }
-    alert("Product added to cart");
     if (redirect) {
       navigate("/cart");
     }

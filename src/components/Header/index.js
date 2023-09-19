@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Sushan from "../../assets/Sushan Logo.jpg";
 import { Search, ShoppingCart, User } from "lucide-react";
@@ -44,8 +44,16 @@ const Header = () => {
 
     navigate("/");
   };
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    const carts = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(carts);
+  }, []);
+  console.log(cart);
+
   return (
-    <header className="text-gray-600 body-font shadow-lg">
+    <header className="text-gray-600 body-font shadow-lg sticky w-full top-0 z-10 bg-white">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center">
         <Link
           to={"/"}
@@ -116,7 +124,7 @@ const Header = () => {
               to={"/cart"}
               className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
             >
-              <ShoppingCart />
+              <ShoppingCart /> {cart?.length}
             </Link>
           </div>
         </div>

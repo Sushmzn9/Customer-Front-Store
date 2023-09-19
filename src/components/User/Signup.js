@@ -56,7 +56,6 @@ const SignUp = () => {
       ...formDt,
       [name]: value,
     });
-    console.log(formDt);
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -65,7 +64,7 @@ const SignUp = () => {
     if (confirmPassword !== rest.password) {
       return toast.error("password not match");
     }
-    console.log(formDt);
+
     postUserSignUpAction(rest);
   };
 

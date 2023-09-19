@@ -6,8 +6,7 @@ import Inputs from "../../components/InputField/Inputs";
 const Checkout = () => {
   const [total, setTotal] = useState(0);
   const { user } = useSelector((state) => state.userInfo);
-  const { email, fName, address, lName, qty } = user;
-  console.log(user);
+  const { email, fName, address, lName } = user;
   const [paymentDt, setPayment] = useState([]);
 
   useEffect(() => {
@@ -31,7 +30,6 @@ const Checkout = () => {
   const handleOnSelect = (e) => {
     const { value } = e.target;
     setSelectedPayment(value);
-    console.log(e.target);
   };
   const formData = [
     {

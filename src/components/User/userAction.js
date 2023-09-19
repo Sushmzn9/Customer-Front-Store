@@ -21,7 +21,6 @@ export const signInUserAction = (obj) => async (dispatch) => {
   });
   const { status, message, token } = await pendingResp;
 
-  console.log(token);
   toast[status](message);
 
   if (status === "success") {
@@ -29,15 +28,11 @@ export const signInUserAction = (obj) => async (dispatch) => {
     localStorage.setItem("refreshJWT", token.refreshJWT);
     dispatch(getUserProfileAction());
   }
-  //get the user data and mount in the state
 };
 
-//get admin profile
 export const getUserProfileAction = () => async (dispatch) => {
-  //call the api to get user info
   const { status, user } = await getUserInfo();
-  //mount the state with the user data
-  console.log(user);
+
   if (status === "success") {
     dispatch(setUser(user));
   }

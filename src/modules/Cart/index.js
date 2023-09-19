@@ -7,7 +7,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const carts = JSON.parse(localStorage.getItem("cart")) || [];
-  // console.log(carts);
+
   const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const Cart = () => {
 
   const handleInc = (id) => {
     const updatedCart = carts.map((item) => {
-      console.log(carts);
       if (item._id === id) {
         const newQuantity = Math.min(
           item.quantity + 1,
@@ -30,6 +29,7 @@ const Cart = () => {
             "You have reached the maximum quantity limit for this item."
           );
         }
+
         return {
           ...item,
           quantity: newQuantity,
@@ -53,7 +53,6 @@ const Cart = () => {
           quantity: newQuantity,
         };
       }
-
       return item;
     });
     localStorage.setItem("cart", JSON.stringify(updatedCart));

@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 const DiscountBanner = () => {
+  const [buttonText, setButtonText] = useState("Get Promo Code");
+  const handleOnChange = () => {
+    setButtonText("FreeDelivery20");
+  };
+
   return (
     <section className="overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
       <img
@@ -24,8 +29,11 @@ const DiscountBanner = () => {
           </span>
         </h2>
 
-        <button className="mt-8 inline-block w-full bg-black py-4 text-sm font-bold uppercase tracking-widest text-white">
-          Get Discount
+        <button
+          onClick={handleOnChange}
+          className="mt-8 inline-block w-full bg-black py-4 text-sm font-bold uppercase tracking-widest text-white"
+        >
+          {buttonText}
         </button>
 
         <p className="mt-8 text-xs font-medium uppercase text-gray-400">

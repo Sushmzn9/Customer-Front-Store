@@ -16,7 +16,6 @@ const FeatureCard = ({ categories }) => {
         </div>
         <div className="flex flex-wrap -m-4">
           {categories?.map((category) => {
-            console.log(category);
             const { title, slug, _id } = category;
             return (
               <Link

@@ -9,15 +9,13 @@ const initialState = {
 };
 const SignIn = () => {
   const location = useLocation();
-  console.log(location);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState(initialState);
   const { user } = useSelector((state) => state.userInfo);
 
   const pathTo = location.state?.from?.location?.pathname || "/";
-  console.log(location);
-  console.log(pathTo);
   useEffect(() => {
     user?._id && navigate(pathTo);
     dispatch(autoLogin());
@@ -33,7 +31,6 @@ const SignIn = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch(signInUserAction(form));
-    console.log(form);
   };
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
