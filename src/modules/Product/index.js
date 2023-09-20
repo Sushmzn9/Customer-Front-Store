@@ -19,7 +19,7 @@ const Product = () => {
 
   const handleCart = (productDt, redirect) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+    console.log();
     const isProductExist = cart.find((item) => item._id === productDt._id);
 
     if (isProductExist) {
@@ -29,10 +29,7 @@ const Product = () => {
             item.quantity + 1,
             parseInt(`${item.qty}`)
           );
-          if (
-            newQuantity === undefined ||
-            newQuantity === parseInt(`${item.qty}`)
-          ) {
+          if (newQuantity === parseInt(`${item.qty}`)) {
             toast.info(
               "You have reached the maximum quantity limit for this item."
             );

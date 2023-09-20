@@ -18,6 +18,7 @@ const Checkout = () => {
   }, []);
 
   const carts = JSON.parse(localStorage.getItem("cart")) || [];
+
   useEffect(() => {
     const total = carts.reduce((acc, item) => {
       return acc + item.price * item.quantity;

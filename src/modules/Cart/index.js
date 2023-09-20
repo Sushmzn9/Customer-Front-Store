@@ -20,11 +20,9 @@ const Cart = () => {
   const handleInc = (id) => {
     const updatedCart = carts.map((item) => {
       if (item._id === id) {
-        const newQuantity = Math.min(
-          item.quantity + 1,
-          parseInt(`${item.qty}`)
-        );
-        if (newQuantity === parseInt(` ${item.qty}`)) {
+        const maxQty = parseInt(`${item.qty}`);
+        const newQuantity = Math.min(item.quantity + 1, maxQty);
+        if (newQuantity === maxQty) {
           toast.info(
             "You have reached the maximum quantity limit for this item."
           );
