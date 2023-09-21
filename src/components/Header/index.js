@@ -50,7 +50,6 @@ const Header = () => {
     const carts = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(carts);
   }, []);
-  console.log(cart);
 
   return (
     <header className="text-gray-600 body-font shadow-lg sticky w-full top-0 z-10 bg-white">
