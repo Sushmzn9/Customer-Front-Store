@@ -13,11 +13,16 @@ import { ToastContainer, Zoom } from "react-toastify";
 import UserVerification from "./components/User/UserVerification";
 import PrivateRoute from "./modules/Private/privateRoute";
 import Checkout from "./modules/Checkout/Checkout";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [carts, setCarts] = useState(() => {
+    const storedCarts = JSON.parse(localStorage.getItem("cart")) || [];
+    return storedCarts;
+  });
   return (
     <div>
-      <Header />
+      <Header carts={carts} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:slug?/:_id?" element={<Product />} />

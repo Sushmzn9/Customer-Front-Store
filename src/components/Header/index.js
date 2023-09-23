@@ -23,7 +23,7 @@ const navigations = [
   },
 ];
 
-const Header = () => {
+const Header = ({ carts }) => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,12 +44,12 @@ const Header = () => {
 
     navigate("/");
   };
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-    const carts = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(carts);
-  }, []);
+  // useEffect(() => {
+  //   const carts = JSON.parse(localStorage.getItem("cart")) || [];
+  //   setCart(carts);
+  // }, [localStorage.getItem("cart")]);
 
   return (
     <header className="text-gray-600 body-font shadow-lg sticky w-full top-0 z-10 bg-white">
@@ -123,7 +123,7 @@ const Header = () => {
               to={"/cart"}
               className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
             >
-              <ShoppingCart /> {cart?.length}
+              <ShoppingCart /> {carts?.length}
             </Link>
           </div>
         </div>

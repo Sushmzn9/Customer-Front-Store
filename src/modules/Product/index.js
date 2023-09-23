@@ -19,10 +19,17 @@ const Product = () => {
 
   const handleCart = (productDt, redirect) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log();
-    const isProductExist = cart.find((item) => item._id === productDt._id);
 
-    if (isProductExist) {
+    console.log(cart);
+    const isProductNotExist = !cart.find((item) => item._id === productDt._id);
+    console.log(isProductNotExist);
+    if (isProductNotExist) {
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([...cart, { ...productDt, quantity: 1 }])
+      );
+      toast.success("Product added to cart");
+    } else {
       const updatedCart = cart.map((item) => {
         if (item._id === productDt._id) {
           const newQuantity = Math.min(
@@ -45,11 +52,6 @@ const Product = () => {
         return item;
       });
       localStorage.setItem("cart", JSON.stringify(updatedCart));
-    } else {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([...cart, { ...productDt, quantity: 1 }])
-      );
     }
     if (redirect) {
       navigate("/cart");
