@@ -4,8 +4,13 @@ import { getProduct } from "../../helper/axios";
 import { Facebook, Heart, Instagram, Star } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../Cart/CartSlice";
 
 const Product = () => {
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cartInfo);
+  console.log(cart);
   const { _id } = useParams();
   const navigate = useNavigate();
   const [productDt, setProductDt] = useState({});
@@ -18,44 +23,12 @@ const Product = () => {
   }, [_id]);
 
   const handleCart = (productDt, redirect) => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    console.log(cart);
-    const isProductNotExist = !cart.find((item) => item._id === productDt._id);
-    console.log(isProductNotExist);
-    if (isProductNotExist) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([...cart, { ...productDt, quantity: 1 }])
-      );
-      toast.success("Product added to cart");
-    } else {
-      const updatedCart = cart.map((item) => {
-        if (item._id === productDt._id) {
-          const newQuantity = Math.min(
-            item.quantity + 1,
-            parseInt(`${item.qty}`)
-          );
-          if (newQuantity === parseInt(`${item.qty}`)) {
-            toast.info(
-              "You have reached the maximum quantity limit for this item."
-            );
-          } else {
-            toast.success("Product added to cart");
-          }
-          return {
-            ...item,
-            quantity: newQuantity,
-          };
-        }
-
-        return item;
-      });
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-    }
     if (redirect) {
       navigate("/cart");
+      return;
     }
+    dispatch(setCart({ ...productDt, orderQty: 1 }));
+    toast.success("Product added to cart");
   };
 
   if (!Object.keys(productDt).length > 0)

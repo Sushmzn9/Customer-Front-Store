@@ -6,7 +6,7 @@ import Inputs from "../../components/InputField/Inputs";
 const Checkout = () => {
   const [total, setTotal] = useState(0);
   const { user } = useSelector((state) => state.userInfo);
-  const { email, fName, address, lName } = user;
+  const { email, fName, address, lName, phone } = user;
   const [paymentDt, setPayment] = useState([]);
 
   useEffect(() => {
@@ -17,14 +17,13 @@ const Checkout = () => {
     fetchPayment();
   }, []);
 
-  const carts = JSON.parse(localStorage.getItem("cart")) || [];
-
+  const { cart } = useSelector((state) => state.cartInfo);
   useEffect(() => {
-    const total = carts.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
+    const total = cart.reduce((acc, item) => {
+      return acc + item.price * item.orderQty;
     }, 0);
     setTotal(total);
-  }, [carts]);
+  }, [cart]);
 
   const [selectedPayment, setSelectedPayment] = useState("");
 
@@ -48,6 +47,13 @@ const Checkout = () => {
       disabled: true,
     },
     {
+      label: "Phone Number",
+      type: "number",
+      name: "phone",
+      value: parseInt(`${phone}`),
+      disabled: true,
+    },
+    {
       label: "Email",
       type: "email",
       name: "email",
@@ -59,7 +65,6 @@ const Checkout = () => {
       type: "text",
       name: "address",
       value: `${address}`,
-      disabled: true,
     },
   ];
   return (
@@ -70,7 +75,7 @@ const Checkout = () => {
           Check your items. And select a suitable shipping method.
         </p>
         <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-          {carts.map((cart) => {
+          {cart.map((cart) => {
             return (
               <div
                 key={cart._id}
@@ -86,10 +91,10 @@ const Checkout = () => {
                 <div className="flex w-full flex-col px-4 py-4">
                   <span className="font-semibold">{cart?.name}</span>
                   <span className="float-right text-gray-400">
-                    Total Item : {cart.quantity}
+                    Total Item : {cart.orderQty}
                   </span>
                   <p className="mt-auto text-lg font-bold">
-                    ${cart?.price * cart?.quantity}
+                    ${cart?.price * cart?.orderQty}
                   </p>
                 </div>
               </div>
@@ -135,13 +140,9 @@ const Checkout = () => {
         <p className="text-gray-400">
           Complete your order by providing your payment details.
         </p>
-        <form className="">
+        <form className="col-span-6 mt-2 sm:col-span-3 border p-4 rounded shadow-lg">
           {formData.map((user) => {
-            return (
-              <form className="col-span-6 mt-2 sm:col-span-3 border p-3 shadow-lg">
-                <Inputs key={user.name} {...user} />
-              </form>
-            );
+            return <Inputs key={user._id} {...user} />;
           })}
         </form>
         <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">

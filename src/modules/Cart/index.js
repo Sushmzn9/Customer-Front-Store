@@ -1,72 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { removeFromCart, setCart } from "./CartSlice";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
-  const [carts, setCarts] = useState(() => {
-    const storedCarts = JSON.parse(localStorage.getItem("cart")) || [];
-    return storedCarts;
-  });
-  console.log(carts);
+  // const [carts, setCarts] = useState();
+  // console.log(carts);
+  const { cart } = useSelector((state) => state.cartInfo);
   const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
-    const total = carts.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
+    const total = cart.reduce((acc, item) => {
+      return acc + item.price * item.orderQty;
     }, 0);
     setTotal(total);
-  }, [carts]);
+  }, [cart]);
 
-  const handleInc = (id) => {
-    const updatedCart = carts.map((item) => {
-      if (item._id === id) {
-        const maxQty = parseInt(`${item.qty}`);
-        const newQuantity = Math.min(item.quantity + 1, maxQty);
-        if (newQuantity === maxQty) {
-          toast.info(
-            "You have reached the maximum quantity limit for this item."
-          );
-        }
-
-        return {
-          ...item,
-          quantity: newQuantity,
-        };
-      }
-
-      return item;
-    });
-
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCarts(updatedCart);
-    navigate("/cart");
-  };
-
-  const handleDec = (id) => {
-    const updatedCart = carts.map((item) => {
-      const newQuantity = Math.max(item.quantity - 1, 1);
-
-      if (item._id === id) {
-        return {
-          ...item,
-          quantity: newQuantity,
-        };
+  const handleInc = (_id) => {
+    console.log(_id);
+    const updatedCart = cart.map((item) => {
+      console.log(item);
+      if (item._id === _id) {
+        return dispatch(setCart({ ...item, orderQty: item.orderQty + 1 }));
       }
       return item;
     });
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCarts(updatedCart);
+
     navigate("/cart");
   };
 
-  const removeProduct = (id) => {
-    const updatedCart = carts.filter((item) => item._id !== id);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCarts(updatedCart);
+  const handleDec = (_id) => {
+    const updatedCart = cart.map((item) => {
+      if (item._id === _id) {
+        const newQuantity = Math.max(item.orderQty - 1, 1);
+        return dispatch(setCart({ ...item, orderQty: newQuantity }));
+      }
+      return item;
+    });
+    console.log(updatedCart);
 
+    navigate("/cart");
+  };
+
+  const removeProduct = (_id) => {
+    dispatch(removeFromCart(_id));
     navigate("/cart");
   };
 
@@ -74,7 +55,7 @@ const Cart = () => {
     user._id ? navigate("/checkout") : navigate("/signin");
   };
 
-  if (carts.length === 0) {
+  if (cart.length === 0) {
     return (
       <div className=" h-[55vh] flex justify-center items-center text-4xl ">
         Cart is Empty
@@ -88,7 +69,7 @@ const Cart = () => {
         <div className="w-3/4 bg-white px-10 py-10">
           <div className="flex justify-between border-b pb-8">
             <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 className="font-semibold text-2xl">{carts.length} Items</h2>
+            <h2 className="font-semibold text-2xl">{cart.length} Items</h2>
           </div>
           <div className="flex mt-10 mb-5">
             <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
@@ -104,7 +85,7 @@ const Cart = () => {
               Total
             </h3>
           </div>
-          {carts?.map((cart) => {
+          {cart?.map((cart) => {
             return (
               <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                 <div className="flex w-2/5">
@@ -142,12 +123,12 @@ const Cart = () => {
                   <input
                     className="mx-2 border text-center w-8"
                     type="text"
-                    value={cart?.quantity}
+                    value={cart.orderQty}
                   />
 
                   <svg
                     className="fill-current text-gray-600 w-3 cursor-pointer"
-                    onClick={() => handleInc(cart?._id)}
+                    onClick={() => handleInc(cart._id)}
                     viewBox="0 0 448 512"
                   >
                     <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
@@ -157,7 +138,7 @@ const Cart = () => {
                   ${cart?.price}
                 </span>
                 <span className="text-center w-1/5 font-semibold text-sm">
-                  ${cart?.price * cart?.quantity}
+                  ${cart?.price * cart?.orderQty}
                 </span>
               </div>
             );
@@ -183,7 +164,7 @@ const Cart = () => {
           </h1>
           <div className="flex justify-between mt-10 mb-5">
             <span className="font-semibold text-sm uppercase">
-              Items {carts?.length}
+              Items {cart?.length}
             </span>
             <span className="font-semibold text-sm">{total?.toFixed(2)}$</span>
           </div>

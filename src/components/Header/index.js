@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Sushan from "../../assets/Sushan Logo.jpg";
 import { Search, ShoppingCart, User } from "lucide-react";
 import MyPopover from "../Popup/Popup";
@@ -23,14 +23,12 @@ const navigations = [
   },
 ];
 
-const Header = ({ carts }) => {
+const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleOnLogout = () => {
-    // log out from server by removing the access and refresh JWTs
-
     logoutUser(user._id);
 
     //clear storages
@@ -44,13 +42,7 @@ const Header = ({ carts }) => {
 
     navigate("/");
   };
-  // const [cart, setCart] = useState([]);
-
-  // useEffect(() => {
-  //   const carts = JSON.parse(localStorage.getItem("cart")) || [];
-  //   setCart(carts);
-  // }, [localStorage.getItem("cart")]);
-
+  const { cart } = useSelector((state) => state.cartInfo);
   return (
     <header className="text-gray-600 body-font shadow-lg sticky w-full top-0 z-10 bg-white">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center">
@@ -123,7 +115,7 @@ const Header = ({ carts }) => {
               to={"/cart"}
               className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base"
             >
-              <ShoppingCart /> {carts?.length}
+              <ShoppingCart /> {cart?.length}
             </Link>
           </div>
         </div>
