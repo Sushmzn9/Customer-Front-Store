@@ -18,8 +18,9 @@ const cartSlice = createSlice({
         const index = state.cart.findIndex((item) => item._id === payload._id);
         console.log(index, "this is a index to be replaced");
 
-        // state.cart = [payload];
-        state.cart = state.cart.splice(index, 1, payload);
+        if (index !== -1) {
+          state.cart[index] = payload;
+        }
       }
     },
     removeFromCart: (state, { payload }) => {

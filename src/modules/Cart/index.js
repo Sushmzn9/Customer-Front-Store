@@ -25,7 +25,11 @@ const Cart = () => {
     const updatedCart = cart.map((item) => {
       console.log(item);
       if (item._id === _id) {
-        return dispatch(setCart({ ...item, orderQty: item.orderQty + 1 }));
+        if (item.orderQty < item.qty) {
+          return dispatch(setCart({ ...item, orderQty: item.orderQty + 1 }));
+        } else {
+          toast.error("Limit fulfilled");
+        }
       }
       return item;
     });
@@ -41,7 +45,6 @@ const Cart = () => {
       }
       return item;
     });
-    console.log(updatedCart);
 
     navigate("/cart");
   };
