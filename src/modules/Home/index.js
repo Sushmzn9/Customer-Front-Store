@@ -23,6 +23,7 @@ const Home = () => {
     <>
       <Hero />
       <Categories />
+      <DiscountBanner />
       <div className="flex flex-col text-center w-full mt-20">
         <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
           PRODUCTS
@@ -38,8 +39,6 @@ const Home = () => {
           <Skeleton count={5} containerClassName="flex-1" />
         </div>
       )}
-      <Products />
-      <DiscountBanner />
       <Stats />
     </>
   );

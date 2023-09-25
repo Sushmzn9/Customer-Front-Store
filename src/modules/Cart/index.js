@@ -22,7 +22,7 @@ const Cart = () => {
 
   const handleInc = (_id) => {
     console.log(_id);
-    const updatedCart = cart.map((item) => {
+    cart.map((item) => {
       console.log(item);
       if (item._id === _id) {
         if (item.orderQty < item.qty) {
@@ -38,7 +38,7 @@ const Cart = () => {
   };
 
   const handleDec = (_id) => {
-    const updatedCart = cart.map((item) => {
+    cart.map((item) => {
       if (item._id === _id) {
         const newQuantity = Math.max(item.orderQty - 1, 1);
         return dispatch(setCart({ ...item, orderQty: newQuantity }));

@@ -3,21 +3,35 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="text-gray-600 body-font border-t-2">
-      <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col"></div>
-      <div className="bg-gray-100">
-        <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-          <p className="text-gray-500 text-sm text-center sm:text-left">
-            © 2020 Tailblocks —
-            <Link
-              href="https://twitter.com/knyttneve"
-              rel="noopener noreferrer"
-              className="text-gray-600 ml-1"
-              target="_blank"
-            >
-              @knyttneve
-            </Link>
+    <footer className="bg-white text-gray-700 py-6 border shadow-lg mb-2">
+      <div className="container mx-auto text-center">
+        <div className="mb-4">
+          <p className="text-sm">
+            &copy; {new Date().getFullYear()} Tech Store. All rights reserved.
           </p>
+        </div>
+        <div className="mb-4">
+          <Link to="/about" className="text-sm text-gray-700 hover:text-black">
+            About Us
+          </Link>
+          <Link
+            to="/contact"
+            className="text-sm text-gray-700 hover:text-black"
+          >
+            Contact
+          </Link>
+        </div>
+        <div className="mb-4">
+          <Link
+            to="/privacy"
+            className="text-sm text-gray-700 hover:text-black"
+          >
+            Privacy Policy
+          </Link>{" "}
+          |{" "}
+          <Link to="/terms" className="text-sm text-gray-700 hover:text-black">
+            Terms of Service
+          </Link>
         </div>
       </div>
     </footer>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { autoLogin, signInUserAction } from "./userAction";
+import sushan from "./../../assets/Sushan Logo.jpg";
 
 const initialState = {
   email: "",
@@ -35,7 +36,7 @@ const SignIn = () => {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img className="mx-auto h-10 w-auto" src="" alt="Your Company" />
+        <img className="mx-auto h-10 w-auto" src={sushan} alt="Your Company" />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
         </h2>
