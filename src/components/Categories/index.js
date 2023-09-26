@@ -12,7 +12,7 @@ const Categories = () => {
     fetchCategoriesById();
   }, []);
 
-  if (categories.length === 0) return <div>Loading.....</div>;
+  if (categories?.length === 0) return <div>Loading.....</div>;
 
   return <FeatureCard categories={categories} />;
 };

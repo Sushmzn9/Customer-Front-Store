@@ -24,7 +24,7 @@ const Products = () => {
           ALL PRODUCTS
         </h1>
       </div>
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <ProductCard allproducts={products} />
       ) : (
         <div style={{ display: "flex" }}>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Categories from "../../components/Categories";
 import Hero from "../../components/Hero";
 import ProductCard from "../../components/ProductCard";
-import Products from "../../components/ProductCard";
 import Stats from "../../components/StatCard";
 import DiscountBanner from "../../components/Add/DiscountBanner";
 import { getProduct } from "../../helper/axios";
