@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const SearchPopover = ({ displayProduct, handleOnSearch }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const popoverRef = useRef(null);
 
   const handleFocus = () => {
     setIsPopoverOpen(true);
   };
 
   const handleBlur = () => {
+    if (
+      popoverRef.current &&
+      !popoverRef.current.contains(document.activeElement)
+    ) {
+      setIsPopoverOpen(false);
+    }
+  };
+  const handleLinkClick = () => {
     setIsPopoverOpen(false);
   };
 
@@ -29,7 +38,11 @@ const SearchPopover = ({ displayProduct, handleOnSearch }) => {
           <ul className="flex flex-col">
             {displayProduct.map(({ name, _id, slug, thumbnail }) => {
               return (
-                <Link key={_id} href={`/products/${slug}/${_id}`}>
+                <Link
+                  key={_id}
+                  to={`/products/${slug}/${_id}`}
+                  onClick={handleLinkClick}
+                >
                   <li className="px-4 py-2 hover:bg-indigo-100 text-sm flex gap-2">
                     <img
                       className="h-10 w-10 rounded-md border object-contain object-center"

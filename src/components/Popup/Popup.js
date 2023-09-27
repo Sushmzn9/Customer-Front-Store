@@ -49,10 +49,10 @@ export default function MyPopover() {
               <Popover.Panel className="absolute z-10 mt-3 w-screen max-w-sm transform -translate-x-1/2 left-1/2 px-4 sm:px-0">
                 <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="grid gap-4 p-7 lg:grid-cols-2 bg-white">
-                    {categories?.map((category) => (
+                    {categories?.map(({ _id, slug, title }) => (
                       <Link
-                        key={category._id}
-                        to={`category/${category.slug}/${category._id}`}
+                        key={_id}
+                        to={`category/${slug}/${_id}`}
                         className="-m-3 flex items-center p-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 rounded-lg"
                       >
                         <div className="flex h-10 w-10 items-center justify-center bg-orange-700 text-white rounded-full">
@@ -60,7 +60,7 @@ export default function MyPopover() {
                         </div>
                         <div className="ml-4">
                           <p className="text-sm font-medium text-gray-900 uppercase">
-                            {category.title}
+                            {title}
                           </p>
                         </div>
                       </Link>

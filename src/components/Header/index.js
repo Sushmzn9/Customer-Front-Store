@@ -25,6 +25,7 @@ const navigations = [
 ];
 
 const Header = () => {
+  // Receive isPopoverOpen and setIsPopoverOpen props
   const [displayProduct, setDisplayProduct] = useState([]);
   const [productDt, setProduct] = useState([]);
   const { user } = useSelector((state) => state.userInfo);
