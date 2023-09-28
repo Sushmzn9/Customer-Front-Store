@@ -21,15 +21,23 @@ const Product = () => {
     };
     fetchProduct();
   }, [_id]);
-
+  console.log(productDt);
   const handleCart = (productDt, redirect) => {
     if (redirect) {
       dispatch(setCart({ ...productDt, orderQty: 1 }));
       navigate("/cart");
       return;
     }
-    dispatch(setCart({ ...productDt, orderQty: productDt.orderQty + 1 }));
-    toast.success("Product added to cart");
+    if (isNaN(productDt.orderQty)) {
+      console.log(productDt.orderQty);
+      dispatch(setCart({ ...productDt, orderQty: 1 }));
+      toast.success("Product added to cart");
+    } else {
+      console.log(productDt.orderQty);
+
+      dispatch(setCart({ ...productDt, orderQty: productDt.orderQty + 1 }));
+      toast.success("Product added to cart");
+    }
   };
 
   if (!Object.keys(productDt).length > 0)

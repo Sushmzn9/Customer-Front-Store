@@ -21,7 +21,6 @@ const SearchPopover = ({ displayProduct, handleOnSearch }) => {
     setIsPopoverOpen(false);
   };
 
-  console.log(displayProduct);
   return (
     <div className="relative">
       <input

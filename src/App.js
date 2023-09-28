@@ -13,6 +13,7 @@ import { ToastContainer, Zoom } from "react-toastify";
 import UserVerification from "./components/User/UserVerification";
 import PrivateRoute from "./modules/Private/privateRoute";
 import Checkout from "./modules/Checkout/Checkout";
+import Booking from "./modules/Booking/Booking";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:slug?/:_id?" element={<Product />} />
+        <Route path="/book" element={<Booking />} />
         <Route path="/all-products" element={<Products />} />
         <Route path="/category/:slug?/:_id?" element={<CategoryProducts />} />
         <Route path="/user-verification" element={<UserVerification />} />

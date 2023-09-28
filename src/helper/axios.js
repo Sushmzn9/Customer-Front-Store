@@ -7,6 +7,7 @@ const admiAPI = rootAPI + "/admin";
 const proAPI = rootAPI + "/product";
 const userAPI = rootAPI + "/user";
 const paymentAPI = rootAPI + "/payment";
+const bookAPI = rootAPI + "/book";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -29,6 +30,7 @@ const axiosProcesor = async ({ method, url, obj, isPrivate, refreshToken }) => {
   const headers = {
     Authorization: isPrivate ? token : null,
   };
+
   try {
     const { data } = await axios({
       method,
@@ -141,5 +143,26 @@ export const getPaymentInfo = (_id) => {
     method: "get",
     url: _id ? paymentAPI + "/" + _id : paymentAPI,
   };
+  return axiosProcesor(obj);
+};
+
+//booking slot
+
+export const postBooking = (data) => {
+  const obj = {
+    method: "post",
+    url: bookAPI,
+    obj: data,
+  };
+
+  return axiosProcesor(obj);
+};
+export const getBooking = (_id) => {
+  console.log(_id);
+  const obj = {
+    method: "Get",
+    url: _id ? bookAPI + "/" + _id : bookAPI,
+  };
+  console.log(obj);
   return axiosProcesor(obj);
 };

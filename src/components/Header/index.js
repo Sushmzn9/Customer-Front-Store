@@ -31,7 +31,6 @@ const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(displayProduct);
 
   const handleOnLogout = () => {
     logoutUser(user._id);
@@ -57,15 +56,12 @@ const Header = () => {
     fetchProducts();
   }, []);
 
-  console.log(productDt);
-
   const handleOnSearch = (e) => {
     const { value } = e.target;
     const filterProduct = productDt.filter((item) =>
       item?.name?.toLowerCase().includes(value?.toLowerCase())
     );
     setDisplayProduct(filterProduct);
-    console.log(filterProduct);
   };
 
   return (
