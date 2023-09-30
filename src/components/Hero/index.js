@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <a href="/" className="group relative block">
+    <Link to="/" className="group relative block">
       <div className="relative h-[350px] sm:h-[450px]">
         <img
           src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
@@ -33,7 +33,7 @@ const Hero = () => {
           Shop Now
         </Link>
       </div>
-    </a>
+    </Link>
   );
 };
 

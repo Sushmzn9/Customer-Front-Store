@@ -11,6 +11,7 @@ const ProductCard = ({ allproducts }) => {
               product;
             return (
               <Link
+                key={_id}
                 to={`/products/${slug}/${_id}`}
                 className="lg:w-[23%] md:w-1/2 p-4 w-full mb-4 cursor-pointer rounded-lg border shadow ml-4 hover:scale-105 transition-all ease-linear"
               >

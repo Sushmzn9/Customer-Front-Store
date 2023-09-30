@@ -58,9 +58,11 @@ const Header = () => {
 
   const handleOnSearch = (e) => {
     const { value } = e.target;
-    const filterProduct = productDt.filter((item) =>
-      item?.name?.toLowerCase().includes(value?.toLowerCase())
-    );
+    const filterProduct = value.length
+      ? productDt.filter((item) =>
+          item?.name?.toLowerCase().includes(value?.toLowerCase())
+        )
+      : [];
     setDisplayProduct(filterProduct);
   };
 
@@ -80,6 +82,7 @@ const Header = () => {
           {navigations.map((navigation) => {
             return (
               <Link
+                key={navigation.name}
                 to={navigation.path}
                 className="mr-5 hover:text-gray-900 uppercase font-bold"
               >

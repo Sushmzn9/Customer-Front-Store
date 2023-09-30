@@ -10,12 +10,20 @@ import Cart from "./modules/Cart";
 import SignIn from "./components/User/SignIn";
 import SignUp from "./components/User/Signup";
 import { ToastContainer, Zoom } from "react-toastify";
-import UserVerification from "./components/User/UserVerification";
 import PrivateRoute from "./modules/Private/privateRoute";
 import Checkout from "./modules/Checkout/Checkout";
 import Booking from "./modules/Booking/Booking";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getBookingAction } from "./modules/Booking/BookingAction";
+import UserVerification from "./components/User/UserVerification";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBookingAction());
+  }, [dispatch]);
+
   return (
     <div>
       <Header />

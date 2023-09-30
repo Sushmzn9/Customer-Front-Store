@@ -38,6 +38,7 @@ const axiosProcesor = async ({ method, url, obj, isPrivate, refreshToken }) => {
       data: obj,
       headers,
     });
+    console.log(data);
 
     return data;
   } catch (error) {
@@ -95,6 +96,7 @@ export const postUserSignUp = (data) => {
     url: userAPI,
     obj: data,
   };
+  console.log(data);
   return axiosProcesor(obj);
 };
 export const postUserVerificationInfo = (data) => {
@@ -147,6 +149,14 @@ export const getPaymentInfo = (_id) => {
 };
 
 //booking slot
+export const getBookingData = () => {
+  const obj = {
+    method: "get",
+    url: bookAPI,
+  };
+  console.log(obj);
+  return axiosProcesor(obj);
+};
 
 export const postBooking = (data) => {
   const obj = {
@@ -155,14 +165,5 @@ export const postBooking = (data) => {
     obj: data,
   };
 
-  return axiosProcesor(obj);
-};
-export const getBooking = (_id) => {
-  console.log(_id);
-  const obj = {
-    method: "Get",
-    url: _id ? bookAPI + "/" + _id : bookAPI,
-  };
-  console.log(obj);
   return axiosProcesor(obj);
 };

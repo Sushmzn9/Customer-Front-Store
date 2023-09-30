@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "../Header";
-import Footer from "../Footer";
+
 import Spinner from "react-bootstrap/Spinner";
 import { Alert, Container } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";

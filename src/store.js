@@ -15,9 +15,10 @@ const persistedCartReducer = persistReducer(cartpersistConfig, cartReducer);
 const store = configureStore({
   reducer: {
     userInfo: userReducer,
+    bookInfo: bookReducer,
+
     // cartInfo: cartReducer,
     cartInfo: persistedCartReducer,
-    bookInfo: bookReducer,
   },
 });
 const persister = persistStore(store);
