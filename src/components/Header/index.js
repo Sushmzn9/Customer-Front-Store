@@ -59,7 +59,7 @@ const Header = () => {
   const handleOnSearch = (e) => {
     const { value } = e.target;
     const filterProduct = value.length
-      ? productDt.filter((item) =>
+      ? productDt?.filter((item) =>
           item?.name?.toLowerCase().includes(value?.toLowerCase())
         )
       : [];

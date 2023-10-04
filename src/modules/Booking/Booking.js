@@ -20,7 +20,7 @@ const Booking = () => {
   return (
     <section className="flex container items-center justify-center p-12">
       <div className="mx-auto w-full max-w-[550px]">
-        <h1 className="text-2xl">Book Now for Repaired</h1>
+        <h1 className="text-2xl font-serif font-">Book Now for Repaired</h1>
         <form onSubmit={handleOnSubmit}>
           <div className="mb-5">
             <label

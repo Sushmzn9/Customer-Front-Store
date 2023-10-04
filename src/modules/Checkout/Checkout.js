@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { getPaymentInfo } from "../../helper/axios";
 import { useSelector } from "react-redux";
-import Inputs from "../../components/InputField/Inputs";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
+const stripePromise = loadStripe(process.env.React_App_Publishable_KEY);
 
 const Checkout = () => {
+  // const options = {
+  //   // passing the client secret obtained from the server
+  //   clientSecret: "{{CLIENT_SECRET}}",
+  // };
   const [total, setTotal] = useState(0);
-  const { user } = useSelector((state) => state.userInfo);
-  const { email, fName, address, lName, phone } = user;
-  const [paymentDt, setPayment] = useState([]);
+  // const { user } = useSelector((state) => state.userInfo);
+  // const { email, fName, address, lName, phone } = user;
+  // const [paymentDt, setPayment] = useState([]);
 
-  useEffect(() => {
-    const fetchPayment = async () => {
-      const { payment } = await getPaymentInfo();
-      setPayment(payment);
-    };
-    fetchPayment();
-  }, []);
+  // useEffect(() => {
+  //   const fetchPayment = async () => {
+  //     const { payment } = await getPaymentInfo();
+  //     setPayment(payment);
+  //   };
+  //   fetchPayment();
+  // }, []);
 
   const { cart } = useSelector((state) => state.cartInfo);
   useEffect(() => {
@@ -25,46 +33,37 @@ const Checkout = () => {
     setTotal(total);
   }, [cart]);
 
-  const [selectedPayment, setSelectedPayment] = useState("");
+  // const [selectedPayment, setSelectedPayment] = useState("");
 
-  const handleOnSelect = (e) => {
-    const { value } = e.target;
-    setSelectedPayment(value);
-  };
+  // const handleOnSelect = (e) => {
+  //   const { value } = e.target;
+  //   setSelectedPayment(value);
+  // };
   const formData = [
     {
       label: "First Name",
       type: "text",
       name: "fName",
-      value: `${fName}`,
-      disabled: true,
     },
     {
       label: "Last Name",
       type: "text",
       name: "lName",
-      value: `${lName}`,
-      disabled: true,
     },
     {
       label: "Phone Number",
       type: "number",
       name: "phone",
-      value: parseInt(`${phone}`),
-      disabled: true,
     },
     {
       label: "Email",
       type: "email",
       name: "email",
-      value: `${email}`,
-      disabled: true,
     },
     {
       label: "Address",
       type: "text",
       name: "address",
-      value: `${address}`,
     },
   ];
   return (
@@ -105,7 +104,7 @@ const Checkout = () => {
           </div>
         </div>
 
-        <p className="mt-8 text-lg font-medium"> Payment Methods</p>
+        {/* <p className="mt-8 text-lg font-medium"> Payment Methods</p>
         <form className="mt-5 grid gap-6">
           {paymentDt.map((item) => {
             return (
@@ -133,22 +132,11 @@ const Checkout = () => {
               </div>
             );
           })}
-        </form>
+        </form> */}
       </div>
-      <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
-        <p className="text-xl font-medium">Delivery Details</p>
-        <p className="text-gray-400">
-          Complete your order by providing your payment details.
-        </p>
-        <form className="col-span-6 mt-2 sm:col-span-3 border p-4 rounded shadow-lg">
-          {formData.map((user) => {
-            return <Inputs key={user._id} {...user} />;
-          })}
-        </form>
-        <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
-          Place Order
-        </button>
-      </div>
+      <Elements stripe={stripePromise}>
+        <CheckoutForm formData={formData} total={total} />
+      </Elements>
     </div>
   );
 };
