@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getPaymentInfo } from "../../helper/axios";
 import { useSelector } from "react-redux";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -8,22 +7,7 @@ import CheckoutForm from "./CheckoutForm";
 const stripePromise = loadStripe(process.env.React_App_Publishable_KEY);
 
 const Checkout = () => {
-  // const options = {
-  //   // passing the client secret obtained from the server
-  //   clientSecret: "{{CLIENT_SECRET}}",
-  // };
   const [total, setTotal] = useState(0);
-  // const { user } = useSelector((state) => state.userInfo);
-  // const { email, fName, address, lName, phone } = user;
-  // const [paymentDt, setPayment] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchPayment = async () => {
-  //     const { payment } = await getPaymentInfo();
-  //     setPayment(payment);
-  //   };
-  //   fetchPayment();
-  // }, []);
 
   const { cart } = useSelector((state) => state.cartInfo);
   useEffect(() => {
@@ -33,12 +17,6 @@ const Checkout = () => {
     setTotal(total);
   }, [cart]);
 
-  // const [selectedPayment, setSelectedPayment] = useState("");
-
-  // const handleOnSelect = (e) => {
-  //   const { value } = e.target;
-  //   setSelectedPayment(value);
-  // };
   const formData = [
     {
       label: "First Name",
@@ -103,36 +81,6 @@ const Checkout = () => {
             Total: ${total?.toFixed(2)}
           </div>
         </div>
-
-        {/* <p className="mt-8 text-lg font-medium"> Payment Methods</p>
-        <form className="mt-5 grid gap-6">
-          {paymentDt.map((item) => {
-            return (
-              <div className="relative" key={item._id}>
-                <input
-                  className="peer hidden"
-                  id={`radio-${item._id}`}
-                  type="radio"
-                  name="paymentOption"
-                  onClick={handleOnSelect}
-                  value={item._id}
-                  checked={selectedPayment === item._id}
-                />
-                <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-                <label
-                  className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
-                  htmlFor={`radio-${item._id}`}
-                >
-                  <img className="w-14 object-contain" src="/" alt="" />
-                  <div className="ml-5">
-                    <span className="mt-2 font-semibold">{item.title}</span>
-                    <p>{item.descritpion}</p>
-                  </div>
-                </label>
-              </div>
-            );
-          })}
-        </form> */}
       </div>
       <Elements stripe={stripePromise}>
         <CheckoutForm formData={formData} total={total} />

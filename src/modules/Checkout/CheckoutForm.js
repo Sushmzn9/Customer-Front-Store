@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Inputs from "../../components/InputField/Inputs";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { postStripePayment } from "../../helper/axios";
+import { toast } from "react-toastify";
 
 const CheckoutForm = ({ formData, total }) => {
   const stripe = useStripe();
@@ -15,18 +16,38 @@ const CheckoutForm = ({ formData, total }) => {
     });
     console.log(form);
   };
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
       return;
     }
-    const { data } = postStripePayment({
-      amount: total,
-      currency: "aud",
-      paymentMethodType: "card",
-    });
-    console.log(data);
-    const clientSecret = data.clientSecret;
+    try {
+      const { clientSecret } = await postStripePayment({
+        amount: total,
+        currency: "aud",
+        paymentMethodType: "card",
+      });
+      console.log(clientSecret);
+      const client_Secret = clientSecret;
+      console.log(client_Secret);
+      const { paymentIntent } = await stripe.confirmCardPayment(client_Secret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            name: form.fName,
+            email: form.email,
+          },
+        },
+      });
+      console.log(paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        toast.success("Payment Successful");
+      } else {
+        toast.error("payment unsuccessful");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
