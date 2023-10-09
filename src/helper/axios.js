@@ -39,7 +39,6 @@ const axiosProcesor = async ({ method, url, obj, isPrivate, refreshToken }) => {
       data: obj,
       headers,
     });
-    console.log(data);
 
     return data;
   } catch (error) {
@@ -97,7 +96,6 @@ export const postUserSignUp = (data) => {
     url: userAPI,
     obj: data,
   };
-  console.log(data);
   return axiosProcesor(obj);
 };
 export const postUserVerificationInfo = (data) => {
@@ -155,7 +153,6 @@ export const getBookingData = () => {
     method: "get",
     url: bookAPI,
   };
-  console.log(obj);
   return axiosProcesor(obj);
 };
 
@@ -176,6 +173,5 @@ export const postStripePayment = (data) => {
     url: stripeAPI,
     obj: data,
   };
-  console.log(obj);
   return axiosProcesor(obj);
 };

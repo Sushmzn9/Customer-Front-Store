@@ -67,7 +67,6 @@ const SignUp = () => {
     }
 
     postUserSignUpAction(rest);
-    console.log(rest);
   };
 
   return (

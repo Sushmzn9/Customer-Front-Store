@@ -4,16 +4,12 @@ import { setBooks } from "./BookingSlice";
 
 export const getBookingAction = () => async (dispatch) => {
   try {
-    const { status, data } = await getBookingData(); // Fetch booking data using the getBooking function.
-    console.log(status);
-    console.log(data); // Log the fetched data for debugging purposes.
+    const { status, data } = await getBookingData();
 
     if (status === "success") {
-      // If the status is "success," dispatch the setBooks action to store the data.
       dispatch(setBooks(data));
     }
   } catch (error) {
-    // Handle any errors that occur during the request.
     console.log(error.message);
   }
 };

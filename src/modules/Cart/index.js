@@ -8,8 +8,6 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
-  // const [carts, setCarts] = useState();
-  // console.log(carts);
   const { cart } = useSelector((state) => state.cartInfo);
   const { user } = useSelector((state) => state.userInfo);
 
@@ -21,9 +19,7 @@ const Cart = () => {
   }, [cart]);
 
   const handleInc = (_id) => {
-    console.log(_id);
     cart.map((item) => {
-      console.log(item);
       if (item._id === _id) {
         if (item.orderQty < item.qty) {
           return dispatch(setCart({ ...item, orderQty: item.orderQty + 1 }));

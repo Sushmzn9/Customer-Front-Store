@@ -4,7 +4,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { postStripePayment } from "../../helper/axios";
 import { toast } from "react-toastify";
 
-const CheckoutForm = ({ formData, total }) => {
+const CheckoutForm = ({ formData, total, setClientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [form, setForm] = useState({});
@@ -14,7 +14,6 @@ const CheckoutForm = ({ formData, total }) => {
       ...form,
       [name]: value,
     });
-    console.log(form);
   };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -27,8 +26,8 @@ const CheckoutForm = ({ formData, total }) => {
         currency: "aud",
         paymentMethodType: "card",
       });
-      console.log(clientSecret);
       const client_Secret = clientSecret;
+
       console.log(client_Secret);
       const { paymentIntent } = await stripe.confirmCardPayment(client_Secret, {
         payment_method: {
@@ -39,11 +38,8 @@ const CheckoutForm = ({ formData, total }) => {
           },
         },
       });
-      console.log(paymentIntent);
       if (paymentIntent.status === "succeeded") {
         toast.success("Payment Successful");
-      } else {
-        toast.error("payment unsuccessful");
       }
     } catch (error) {
       console.log(error.message);
