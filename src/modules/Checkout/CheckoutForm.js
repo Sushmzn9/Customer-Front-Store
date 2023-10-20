@@ -28,7 +28,6 @@ const CheckoutForm = ({ formData, total, setClientSecret }) => {
       });
       const client_Secret = clientSecret;
 
-      console.log(client_Secret);
       const { paymentIntent } = await stripe.confirmCardPayment(client_Secret, {
         payment_method: {
           card: elements.getElement(CardElement),

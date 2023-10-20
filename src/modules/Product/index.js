@@ -1,51 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct } from "../../helper/axios";
-import { Facebook, Heart, Instagram, Star } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../Cart/CartSlice";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cartInfo);
-  console.log(cart);
   const { _id } = useParams();
   const navigate = useNavigate();
   const [productDt, setProductDt] = useState({});
+
   useEffect(() => {
     const fetchProduct = async () => {
-      const { product } = await getProduct(_id);
-      setProductDt(product);
+      try {
+        const { product } = await getProduct(_id);
+        setProductDt(product);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        // You can handle the error here (e.g., display an error message)
+      }
     };
+
     fetchProduct();
   }, [_id]);
-  console.log(productDt);
-  const handleCart = (productDt, redirect) => {
-    if (redirect) {
-      dispatch(setCart({ ...productDt, orderQty: 1 }));
-      navigate("/cart");
-      return;
-    }
-    if (isNaN(productDt.orderQty)) {
-      console.log(productDt.orderQty);
-      dispatch(setCart({ ...productDt, orderQty: 1 }));
-      toast.success("Product added to cart");
-    } else {
-      console.log(productDt.orderQty);
 
-      dispatch(setCart({ ...productDt, orderQty: productDt.orderQty + 1 }));
-      toast.success("Product added to cart");
+  const handleCart = (_id, redirect) => {
+    const cartItem = cart.find((item) => item._id === _id);
+    if (!cartItem) {
+      dispatch(setCart({ ...productDt, orderQty: 1 }));
+      toast.success("Product Added To Cart");
+    } else {
+      const updatedOrderQty = (cartItem.orderQty || 0) + 1;
+      dispatch(setCart({ ...cartItem, orderQty: updatedOrderQty }));
+      toast.success("Product Added To Cart");
+    }
+
+    if (redirect) {
+      navigate("/cart");
     }
   };
 
-  if (!Object.keys(productDt).length > 0)
+  if (!Object.keys(productDt).length > 0) {
     return (
       <div style={{ display: "flex" }}>
         <Skeleton containerClassName="flex-1" />
       </div>
     );
+  }
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -65,42 +69,25 @@ const Product = () => {
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
               {productDt?.name}
             </h1>
-            <div className="flex mb-4">
-              <span className="flex items-center">
-                <Star />
-                <Star />
-                <Star />
-                <Star />
-                <Star />
-                <span className="text-gray-600 ml-3">4 Reviews</span>
-              </span>
-              <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
-                <Facebook />
-                <Instagram />
-              </span>
-            </div>
             <p className="leading-relaxed">{productDt?.description}</p>
-            <div className="flex justify-between items-center">
-              <span className="title-font font-medium text-2xl text-gray-900 uppercase">
+            <div className="flex flex-row justify-between items-center">
+              <span className="title-font font-serif font-extrabold text-2xl text-gray-900 uppercase">
                 price: ${productDt?.price}
               </span>
               <div className="flex mt-4">
                 <button
                   className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded mr-2"
-                  onClick={() => handleCart(productDt, true)}
+                  onClick={() => handleCart(productDt._id, true)}
                 >
                   Buy it now
                 </button>
                 <button
                   className="flex ml-auto border border-indigo-500 py-2 px-6 focus:outline-none hover:bg-indigo-600 hover:text-white rounded"
-                  onClick={() => handleCart(productDt)}
+                  onClick={() => handleCart(productDt._id)}
                 >
                   Add to cart
                 </button>
               </div>
-              <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center active:text-white ml-4 focus:bg-red-700">
-                <Heart />
-              </button>
             </div>
           </div>
         </div>
