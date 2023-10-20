@@ -56,7 +56,7 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <div className=" h-[55vh] flex justify-center items-center text-4xl ">
+      <div className="h-[90vh] flex justify-center items-center text-4xl ">
         Cart is Empty
       </div>
     );
