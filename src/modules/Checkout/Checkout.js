@@ -83,7 +83,7 @@ const Checkout = () => {
         </div>
       </div>
       <Elements stripe={stripePromise}>
-        <CheckoutForm formData={formData} total={total} />
+        <CheckoutForm formData={formData} total={total} cart={cart} />
       </Elements>
     </div>
   );
