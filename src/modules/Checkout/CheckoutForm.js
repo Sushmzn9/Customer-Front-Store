@@ -4,7 +4,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { postStripePayment } from "../../helper/axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../Cart/CartSlice";
+import { updateCart } from "../Cart/CartSlice";
 
 const CheckoutForm = ({ formData, total, cart }) => {
   const stripe = useStripe();
@@ -41,7 +41,7 @@ const CheckoutForm = ({ formData, total, cart }) => {
         },
       });
       if (paymentIntent.status === "succeeded") {
-        dispatch(removeFromCart(cart._id));
+        dispatch(updateCart([]));
         toast.success("Payment Successful");
       }
     } catch (error) {

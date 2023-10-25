@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct } from "../../helper/axios";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../Cart/CartSlice";
 import { toast } from "react-toastify";
@@ -32,6 +32,7 @@ const Product = () => {
     const updatedOrderQty = cartItem ? (cartItem.orderQty || 0) + 1 : 1;
 
     dispatch(setCart({ ...productDt, orderQty: updatedOrderQty }));
+
     toast.success("Product Added To Cart");
 
     if (redirect) {
@@ -40,7 +41,13 @@ const Product = () => {
   };
 
   if (!Object.keys(productDt).length) {
-    return <Skeleton height={400} />;
+    return (
+      <SkeletonTheme baseColor="#202020" highlightColor="#444">
+        <p>
+          <Skeleton count={3} />
+        </p>
+      </SkeletonTheme>
+    );
   }
 
   return (
@@ -49,7 +56,7 @@ const Product = () => {
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
             alt={productDt?.title}
-            className="lg:w-1/2 w-full lg:h-auto max-h-[600px] h-64 object-cover object-center rounded-lg"
+            className="lg:w-1/2 w-full lg:h-auto max-h-[600px] h-64 object-contain object-center rounded-lg"
             src={
               process.env.REACT_APP_ROOTSERVER + productDt.thumbnail?.slice(6)
             }
