@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getBookingAction } from "./modules/Booking/BookingAction";
 import UserVerification from "./components/User/UserVerification";
+import { ResetPassword } from "./components/PasswordReset/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/checkout"
           element={

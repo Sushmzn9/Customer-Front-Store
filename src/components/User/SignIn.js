@@ -77,7 +77,7 @@ const SignIn = () => {
                 Password
               </label>
               <Link
-                to="/forgot-password"
+                to="/reset-password"
                 className="text-sm text-indigo-600 hover:text-indigo-700"
               >
                 Forgot password?

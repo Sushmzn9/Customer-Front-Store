@@ -175,3 +175,13 @@ export const postStripePayment = (data) => {
   };
   return axiosProcesor(obj);
 };
+
+//reset pass
+export const requestPassOTP = (email) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/request-otp",
+    obj: { email },
+  };
+  return axiosProcesor(obj);
+};
