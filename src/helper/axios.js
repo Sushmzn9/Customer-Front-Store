@@ -185,3 +185,12 @@ export const requestPassOTP = (email) => {
   };
   return axiosProcesor(obj);
 };
+
+export const resetPass = (data) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/reset-password",
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};

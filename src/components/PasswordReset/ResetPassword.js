@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { PasswordOTP } from "./PasswordOTP";
 import { PasswordReset } from "./ResetForm";
-import Header from "../Header";
-import { Alert } from "react-bootstrap";
-import { Container } from "lucide-react";
-import Footer from "../Footer";
-import { requestPassOTP } from "../../helper/axios";
+
+import { Alert, Container } from "react-bootstrap";
+
+import { requestPassOTP, resetPass } from "../../helper/axios";
+import { useNavigate } from "react-router-dom";
 
 export const ResetPassword = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
   const [form, setForm] = useState("otp");
 
   const [resp, setResp] = useState({});
 
   const handleOnOtpRequest = async (email) => {
+    setEmail(email);
     if (!email.includes("@") && !email.includes(".")) {
       return toast.error("Invalid email");
     }
@@ -23,13 +26,33 @@ export const ResetPassword = () => {
     });
 
     const result = await pending;
-    setResp(result);
-    setForm("reset");
+    if (result.status === "success") {
+      setResp(result);
+      setForm("reset");
+    } else {
+      toast.error(result.message);
+    }
+  };
+  const processResetPassAPI = async (obj) => {
+    const pending = resetPass({ ...obj, email });
+    toast.promise(pending, {
+      pending: "Please wait...",
+    });
+
+    const { status, message } = await pending;
+    toast[status](message);
+
+    status === "success" && navigate("/");
   };
 
   const forms = {
     otp: <PasswordOTP handleOnOtpRequest={handleOnOtpRequest} />,
-    reset: <PasswordReset setForm={setForm} />,
+    reset: (
+      <PasswordReset
+        setForm={setForm}
+        processResetPassAPI={processResetPassAPI}
+      />
+    ),
   };
 
   return (
