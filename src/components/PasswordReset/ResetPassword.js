@@ -17,6 +17,7 @@ export const ResetPassword = () => {
 
   const handleOnOtpRequest = async (email) => {
     setEmail(email);
+    console.log(email);
     if (!email.includes("@") && !email.includes(".")) {
       return toast.error("Invalid email");
     }
@@ -34,6 +35,7 @@ export const ResetPassword = () => {
     }
   };
   const processResetPassAPI = async (obj) => {
+    console.log(obj, email);
     const pending = resetPass({ ...obj, email });
     toast.promise(pending, {
       pending: "Please wait...",
