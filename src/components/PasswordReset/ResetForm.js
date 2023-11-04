@@ -15,7 +15,9 @@ export const PasswordReset = ({ setForm, processResetPassAPI }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    processResetPassAPI(formDt);
+    const { confirmPassword, ...rest } = formDt;
+
+    processResetPassAPI(rest);
   };
   return (
     <section className="h-[65vh]">
