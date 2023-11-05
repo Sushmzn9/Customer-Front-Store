@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import Inputs from "../../components/InputField/Inputs";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { postStripePayment } from "../../helper/axios";
+import { postOrder, postStripePayment } from "../../helper/axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateCart } from "../Cart/CartSlice";
+import { useNavigate } from "react-router-dom";
+import { OrderNumber } from "../../helper/OrderNumber";
 
 const CheckoutForm = ({ formData, total, cart }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [form, setForm] = useState({});
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -41,7 +46,13 @@ const CheckoutForm = ({ formData, total, cart }) => {
         },
       });
       if (paymentIntent.status === "succeeded") {
+        const orderNumber = OrderNumber();
+        postOrder({ form, cart, orderNumber });
+        localStorage.setItem("orderNumber", orderNumber);
+
+        console.log({ form, cart, orderNumber });
         dispatch(updateCart([]));
+        navigate("/order-confirm");
         toast.success("Payment Successful");
       }
     } catch (error) {

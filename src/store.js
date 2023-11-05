@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import userReducer from "./components/User/userSlice";
 import cartReducer from "./modules/Cart/CartSlice";
 import bookReducer from "./modules/Booking/BookingSlice";
+import OrderReducer from "./modules/Checkout/OrderSlice.js";
 
 const cartpersistConfig = {
   key: "cartInfo",
@@ -16,9 +17,8 @@ const store = configureStore({
   reducer: {
     userInfo: userReducer,
     bookInfo: bookReducer,
-
-    // cartInfo: cartReducer,
     cartInfo: persistedCartReducer,
+    orderInfo: OrderReducer,
   },
 });
 const persister = persistStore(store);

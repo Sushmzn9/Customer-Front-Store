@@ -8,6 +8,7 @@ const proAPI = rootAPI + "/product";
 const userAPI = rootAPI + "/user";
 const paymentAPI = rootAPI + "/payment";
 const bookAPI = rootAPI + "/book";
+const orderAPI = rootAPI + "/order";
 const stripeAPI = rootAPI + "/create-payment-intent";
 
 const getAccessJWT = () => {
@@ -191,6 +192,27 @@ export const resetPass = (data) => {
     method: "post",
     url: userAPI + "/reset-password",
     obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+//post order
+export const postOrder = (data) => {
+  const obj = {
+    method: "post",
+    url: orderAPI,
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+//get order list
+
+export const getOrderData = (orderNumber) => {
+  console.log(orderNumber);
+  const obj = {
+    method: "get",
+    url: orderNumber ? orderAPI + "/" + orderNumber : orderAPI,
   };
   return axiosProcesor(obj);
 };

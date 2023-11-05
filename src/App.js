@@ -18,12 +18,19 @@ import { useDispatch } from "react-redux";
 import { getBookingAction } from "./modules/Booking/BookingAction";
 import UserVerification from "./components/User/UserVerification";
 import { ResetPassword } from "./components/PasswordReset/ResetPassword";
+import ThankYouPage from "./modules/ThankYou/ThankYouPage";
+import { getOrderAction } from "./modules/Checkout/OrderAction";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBookingAction());
   }, [dispatch]);
+  const orderNumber = localStorage.getItem("orderNumber");
+  console.log(orderNumber, "----thankyou");
+  useEffect(() => {
+    dispatch(getOrderAction(orderNumber));
+  }, [dispatch, orderNumber]);
 
   return (
     <div>
@@ -47,11 +54,19 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/order-confirm"
+          element={
+            <PrivateRoute>
+              <ThankYouPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<div>404</div>} />
       </Routes>
       <Footer />
       <ToastContainer
-        position="bottom-right"
+        position="top-right"
         autoClose={2500}
         hideProgressBar={false}
         newestOnTop={false}

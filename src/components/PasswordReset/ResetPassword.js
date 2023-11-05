@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { PasswordOTP } from "./PasswordOTP";
 import { PasswordReset } from "./ResetForm";
-
-import { Alert, Container } from "react-bootstrap";
-
 import { requestPassOTP, resetPass } from "../../helper/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -61,11 +58,15 @@ export const ResetPassword = () => {
     <>
       <main className="main pt-5">
         {resp.message && (
-          <Container>
-            <Alert variant={resp.status === "success" ? "success" : "danger"}>
-              {resp.message}
-            </Alert>
-          </Container>
+          <div
+            className={
+              resp.status === "success"
+                ? "text-center border p-2 bg-green-600"
+                : "text-center border p-2 bg-red-600"
+            }
+          >
+            {resp.message}
+          </div>
         )}
         <div className="d-flex reset-pass">
           {/* requeset opt form */}
