@@ -47,13 +47,13 @@ const CheckoutForm = ({ formData, total, cart }) => {
       });
       if (paymentIntent.status === "succeeded") {
         const orderNumber = OrderNumber();
-        postOrder({ form, cart, orderNumber });
+        await postOrder({ form, cart, orderNumber });
         localStorage.setItem("orderNumber", orderNumber);
 
         console.log({ form, cart, orderNumber });
+        toast.success("Payment Successful");
         dispatch(updateCart([]));
         navigate("/order-confirm");
-        toast.success("Payment Successful");
       }
     } catch (error) {
       console.log(error.message);
